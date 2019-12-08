@@ -1,0 +1,24 @@
+<div>
+  <div class="uk-text-center uk-grid-match" uk-grid>
+    <div class="uk-width-1-4" v-if="!showComponent">
+        <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-left; repeat: true">
+          <div class="uk-slidenav-container flex-center">
+            <a uk-slidenav-previous @click="prevMonth"></a> 
+                <h4>{{ currentMonth }}</h4>
+            <a uk-slidenav-next @click="nextMonth"></a>
+        </div>
+          <ul class="uk-list">
+            <li><router-link to="/planned"><div class="uk-button uk-button-default">Planned</div></router-link></li>
+            <li><router-link to="/actual" ><div class="uk-button uk-button-default" >Actual</div></router-link></li>
+        </ul>
+        </div>
+    </div>
+    <div class="uk-width-expand" >
+        <div v-if="showComponent" class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-slide-right; repeat: true">
+            <router-view @category="AddMonthlyCategory" @item="AddMonthlyCategItem" />
+        </div>
+    </div>
+</div>
+
+  
+</div>

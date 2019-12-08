@@ -1,0 +1,26 @@
+[{
+    "month": "Novemeber",
+    "year": "2019",
+    "expense_planned": [{
+        "name": "Vehicle",
+        "amount": 5000,
+        "items" : [{
+            "name": "Petrol",
+            "expense": 2000
+        }] 
+    }]
+
+},
+{
+    "month": "December",
+    "year": "2019",
+    "expense_planned": [{
+        "name": "Medical",
+        "amount": 7500,
+        "items" : [{
+            "name": "Blood Test",
+            "expense": 3500
+        }] 
+    }]
+
+}]

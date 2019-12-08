@@ -1,0 +1,41 @@
+<div>
+        <h3>Actual Things</h3>
+        <div>
+                <div class="uk-inline uk-align-left">
+                        <button class="uk-button uk-button-default" type="button">Select Categories</button>
+                        <div uk-dropdown="pos: bottom-justify">
+                            <ul class="uk-nav uk-dropdown-nav">
+                                    <li class="uk-nav-header">Header</li>
+                                <li v-for="categ in categoryList" @click="selectedCateg(categ)"><a href="#">{{categ.name}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="uk-inline uk-align-right uk-align-right@s">
+                        <h3>{{ selectedCategName }}</h3>
+                    </div>    
+        </div>
+        
+        <table class="uk-table uk-table-responsive uk-table-divider" v-if="selectedCategName">
+          <thead>
+              <tr>
+                  <th class="uk-table-expand"><strong>Item</strong></th>
+                  <th class="uk-width-medium"><strong>Amount</strong></th>
+                  <th class="uk-width-small"><strong>Action</strong></th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td><input class="uk-input uk-width-1-2" type="text" placeholder="Items" v-model="itemModel.name"></td>
+                  <td><input class="uk-input uk-width-1-2" type="text" placeholder="Amount" v-model="itemModel.expense"></td>
+                  <td><button class="uk-button uk-button-primary" type="button" @click="emitCategItems">Add</button></td>
+              </tr>
+              <tr v-for="item in categoryList[categIndex] && categoryList[categIndex].items" >
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.expense }}</td>
+                  <td>
+                    <!-- <button class="uk-button uk-button-secondary" type="button">Edit</button> -->
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+      </div>
