@@ -6,13 +6,14 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    monthlyExpese: Array<MonthExpense>(),
+    monthlyExpense: Array<MonthExpense>(),
     currentMonth: String,
+    currentYear: String,
     categoryList: Array<Category>()
   },
   mutations: {
     addMonthlyCategory(state, monthlyexpense: Array<MonthExpense>) {
-      state.monthlyExpese = monthlyexpense;
+      state.monthlyExpense = monthlyexpense;
   },
   changeCurrentMonthState(state, month) {
     state.currentMonth = month;
@@ -34,13 +35,16 @@ export default new Vuex.Store({
   },
   getters: {
     categoryList: (state) => {
-      let expenseForMonth = state.monthlyExpese.find((el) => <string>el.month == state.currentMonth.toString());
+      let expenseForMonth = state.monthlyExpense.find((el) => (<string>el.month === state.currentMonth.toString() && <string>el.year === state.currentYear.toString()));
       console.log('expenseForMonth', expenseForMonth);
             return expenseForMonth ? expenseForMonth.expense_planned : [];
           },
     currentMonth: (state) => {
       return state.currentMonth;
     },
+    currentYear: (state) => {
+      return state.currentYear;
+    }
   },
   modules: {
   },

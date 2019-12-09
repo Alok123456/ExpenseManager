@@ -6,8 +6,9 @@ import { injectable } from 'inversify-props';
 @injectable()
 export default class ExpenseService {
 
-    public async getExpenses(): Promise<any> {
-            const httpResponse = await axios.get('./JSON/expense.json');
-            return httpResponse.data;
+    public getExpenses() {
+            return HTTP.get('./JSON/expense.json').then((response) => {
+                    return response.data;
+            });
     }
 }

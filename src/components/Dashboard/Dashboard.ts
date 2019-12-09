@@ -10,15 +10,15 @@ import { Inject } from 'inversify-props';
 export default class Dashboard extends Vue {
 
     public currentMonth: string = '';
+    public currentYear: string = '';
     public showComponent: boolean = false;
 
     @Inject()
-    private expenseService!: any;
+    private expenseService!: ExpenseService;
 
 
     private monthlyExpense: MonthExpense[];
-    private monthNames: string[] = [ 'January', 'February', 'March', 'April', 'May', 'June',
-                                       'July', 'August', 'September', 'October', 'November', 'December'];
+    private yearsMonths: string[] = [];
 
     constructor() {
         super();
@@ -26,16 +26,10 @@ export default class Dashboard extends Vue {
     }
 
     protected created() {
-        this.currentMonth = this.getExistingMonth();
-        this.trackMonthChangeState();
+        this.getExpenses();
     }
 
-    protected async mounted(): Promise<void> {
-      const expense = await this.getExpenses();
-      console.log('expense', expense);
-      }
-
-    @Watch('$route', {immediate: true, deep: true})
+    @Watch('$route', { immediate: true, deep: true })
     private onUrlChange(newVal: any) {
         if (newVal.fullPath === '/' && newVal.name === null) {
             this.showComponent = false;
@@ -44,41 +38,49 @@ export default class Dashboard extends Vue {
         }
     }
 
-    private async getExpenses(): Promise<void> {
-        const expenses = await this.expenseService.getExpenses();
-        console.log('expenses', expenses);
-      }
+    private getExpenses() {
+        this.expenseService.getExpenses().then((expenses) => {
+            this.monthlyExpense = expenses;
+            if (this.monthlyExpense.length) {
+                this.getExistingMonth();
+                this.trackMonthChangeState();
+                this.$store.dispatch('addMonthlyCategory', this.monthlyExpense);
+            }
+        }).catch((error) => {
+            console.log('error', error);
+        });
+    }
 
     private trackMonthChangeState() {
         this.$store.dispatch('changeCurrentMonthState', this.currentMonth);
     }
 
-    private getExistingMonth(monthNo?: number) {
-        const d = new Date();
-        const month = monthNo ?
-                      this.monthNames[this.monthNames.findIndex((el) => el === this.currentMonth) + monthNo] :
-                      this.monthNames[d.getMonth()];
-        return month;
+    private getExistingMonth() {
+        this.monthlyExpense.forEach((el) => {
+            this.yearsMonths.push(el.year + '-' + el.month);
+        })
+        this.currentMonth = this.monthlyExpense[0].month;
+        this.currentYear = this.monthlyExpense[0].year;
     }
 
-   private AddMonthlyCategory(category: Category): void {
-            const index = this.monthlyExpense.findIndex((el) => el.month === this.currentMonth);
-            if (!(index >= 0)) {
-                this.monthlyExpense.push({month: this.currentMonth, expense_planned: [category]});
-            } else {
-                this.monthlyExpense[index].expense_planned.push(category);
-            }
-            this.$store.dispatch('addMonthlyCategory', this.monthlyExpense);
+    private AddMonthlyCategory(category: Category): void {
+        const index = this.monthlyExpense.findIndex((el) => el.month === this.currentMonth);
+        if (!(index >= 0)) {
+            this.monthlyExpense.push({ month: this.currentMonth, year: '2019', expense_planned: [category] });
+        } else {
+            this.monthlyExpense[index].expense_planned.push(category);
+        }
+        this.$store.dispatch('addMonthlyCategory', this.monthlyExpense);
     }
 
     private AddMonthlyCategItem(item: Item, categName: string) {
-            const index = this.monthlyExpense.findIndex((el) => el.month === this.currentMonth);
-            const categIndex = index >= 0 ?
-                            this.monthlyExpense[index].expense_planned.findIndex((el)=> el.name === categName) : index;
-            if (categIndex >= 0) {
-                this.monthlyExpense[index].expense_planned[categIndex].items.push(item);
-            }
-            this.$store.dispatch('addMonthlyCategory', this.monthlyExpense);
+        const index = this.monthlyExpense.findIndex((el) => el.month === this.currentMonth);
+        const categIndex = index >= 0 ?
+            this.monthlyExpense[index].expense_planned.findIndex((el) => el.name === categName) : index;
+        if (categIndex >= 0) {
+            this.monthlyExpense[index].expense_planned[categIndex].items.push(item);
+        }
+        this.$store.dispatch('addMonthlyCategory', this.monthlyExpense);
     }
 
     private nextMonth() {
