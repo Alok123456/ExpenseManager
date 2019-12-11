@@ -5,8 +5,8 @@
                         <button class="uk-button uk-button-default" type="button">Select Categories</button>
                         <div uk-dropdown="pos: bottom-justify">
                             <ul class="uk-nav uk-dropdown-nav">
-                                    <li class="uk-nav-header">Header</li>
-                                <li v-for="categ in categoryList" @click="selectedCateg(categ)"><a href="#">{{categ.name}}</a></li>
+                                <li v-if="!categoryList.length">No categories available yet</li>
+                                <li v-for="categ in categoryList" @click="selectedCateg(categ)"><a>{{categ.name}}</a></li>
                             </ul>
                         </div>
                     </div>

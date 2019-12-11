@@ -4,9 +4,9 @@
   </div>
 </template>
 
-<style>
+<style type="text/scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -27,26 +27,30 @@
 }
 
 h4 {
-  margin:0px !important; 
+  margin: 0px !important;
   line-height: inherit !important;
 }
 
-h1, h2 {
+h1,
+h2 {
   line-height: inherit !important;
 }
 
 .flex-center {
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 </style>
 
 <script>
-  import Dashboard from '@/components/Dashboard/Dashboard.ts';
+import Vue from "vue";
+import Dashboard from "@/components/Dashboard/Dashboard.ts";
+import Component from "vue-class-component";
 
-  export default {
+@Component({
   components: {
     Dashboard
   }
-};
+})
+export default class App extends Vue {}
 </script>

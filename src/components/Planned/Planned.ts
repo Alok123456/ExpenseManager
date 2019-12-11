@@ -11,7 +11,7 @@ import { mapState, mapGetters } from 'vuex';
 })
 export default class Planned extends Vue {
      private categoryModel: Category;
-     private categoryList!: Array<Category>;
+     public categoryList!: Array<Category>;
     normal: String = '';
   
     constructor() {

@@ -17,6 +17,9 @@ export default new Vuex.Store({
   },
   changeCurrentMonthState(state, month) {
     state.currentMonth = month;
+  },
+  changeCurrentYearState(state, month) {
+    state.currentYear = month;
   }
   },
   actions: {
@@ -31,12 +34,17 @@ export default new Vuex.Store({
       context.commit('changeCurrentMonthState', month);
       resolve();
     });
+},
+changeCurrentYearState(context, year: String) {
+  return new Promise((resolve, reject) => {
+    context.commit('changeCurrentYearState', year);
+    resolve();
+  });
 }
   },
   getters: {
     categoryList: (state) => {
       let expenseForMonth = state.monthlyExpense.find((el) => (<string>el.month === state.currentMonth.toString() && <string>el.year === state.currentYear.toString()));
-      console.log('expenseForMonth', expenseForMonth);
             return expenseForMonth ? expenseForMonth.expense_planned : [];
           },
     currentMonth: (state) => {
