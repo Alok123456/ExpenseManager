@@ -47,22 +47,5 @@
     "typescript": "~3.5.3",
     "vue-jest": "^3.0.5",
     "vue-template-compiler": "^2.6.10"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.jsx?$": "babel-jest" ,
-      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js",
-      ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub"
-    },
-    "testRegex": "\\.test\\.tsx?$",
-    "modulePaths": [
-      "<rootDir>/src/",
-      "<rootDir>/node_modules/"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ]
   }
 }
