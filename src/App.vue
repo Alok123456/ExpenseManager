@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<style type="text/scss">
+<style lang="scss">
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -40,6 +40,15 @@ h2 {
   align-items: center;
   justify-content: center;
 }
+
+.uk-slidenav-previous {
+  margin-right: auto;
+}
+
+.uk-slidenav-next {
+  margin-left: auto;
+}
+
 </style>
 
 <script>

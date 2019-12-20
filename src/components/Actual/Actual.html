@@ -15,7 +15,7 @@
                     </div>    
         </div>
         
-        <table class="uk-table uk-table-responsive uk-table-divider" v-if="selectedCategName">
+        <table class="uk-table uk-table-divider" v-if="selectedCategName">
           <thead>
               <tr>
                   <th class="uk-table-expand"><strong>Item</strong></th>
@@ -25,8 +25,8 @@
           </thead>
           <tbody>
               <tr>
-                  <td><input class="uk-input uk-width-1-2" type="text" placeholder="Items" v-model="itemModel.name"></td>
-                  <td><input class="uk-input uk-width-1-2" type="text" placeholder="Amount" v-model="itemModel.expense"></td>
+                  <td><input class="uk-input uk-width-auto" type="text" placeholder="Items" v-model="itemModel.name"></td>
+                  <td><input class="uk-input uk-width-auto" type="text" placeholder="Amount" v-model="itemModel.expense"></td>
                   <td><button class="uk-button uk-button-primary" type="button" @click="emitCategItems">Add</button></td>
               </tr>
               <tr v-for="item in categoryList[categIndex] && categoryList[categIndex].items" >
